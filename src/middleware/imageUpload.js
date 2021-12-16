@@ -17,7 +17,6 @@ const upload = multer({
   fileFilter: multerFilter,
 });
 
-// upload.array('images', 10); // limit to 10 images
 module.exports = {
   uploadImages: upload.fields([{ name: 'images', maxCount: 4 }]),
 

@@ -6,10 +6,11 @@ import {
   updateProduct,
   deleteProduct,
 } from './productController';
+import { newProductValidation } from '../../middleware/productValidator';
 
 const router = express.Router();
 
-router.route('/').post(createProduct);
+router.route('/').post(newProductValidation, createProduct);
 
 router.route('/:id').get(getProduct).patch(updateProduct).delete(deleteProduct);
 router

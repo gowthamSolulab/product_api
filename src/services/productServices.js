@@ -14,7 +14,7 @@ module.exports = {
   },
   getService: async (id) => {
     const product = await Product.findById(id);
-    if (!product) return;
+    if (!product) return null;
     return product;
   },
   getAllService: async () => {

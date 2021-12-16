@@ -28,10 +28,11 @@ app.use('/api', limiter);
 app.use('/api/v1/products', router);
 
 app.all('*', (req, res) => {
-  logger.error(
-    ` Can't find ${req.originalUrl} on this server! - ${req.method} - ${req.ip}`
-  );
-  handleError(404, `Can't find ${req.originalUrl} on this server!`, res);
+  logger.warn(` Can't find ${req.originalUrl} on this server! - ${req.method}`);
+  res.status(404).json({
+    status: 'fail',
+    errorMessage: `Can't find ${req.originalUrl} on this server!`,
+  });
 });
 
 export default app;

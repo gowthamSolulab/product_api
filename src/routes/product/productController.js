@@ -11,27 +11,27 @@ import {
 module.exports = {
   createProduct: catchAsync(async (req, res) => {
     const data = await createService(req.body);
-    if (!data) return handleError(500, 'internal server error', res);
-    res.data = data;
+    if (!data) return handleError(503, res);
     return handleResponse(201, data, res);
   }),
   getProduct: catchAsync(async (req, res) => {
     const data = await getService(req.params.id);
-    res.data = data;
+    if (!data) return handleError(401, res);
     return handleResponse(200, data, res);
   }),
   updateProduct: catchAsync(async (req, res) => {
     const data = await updateService(req.params.id, req.body);
+    if (!data) return handleError(401, res);
     return handleResponse(201, data, res);
   }),
   deleteProduct: catchAsync(async (req, res) => {
     const data = await deleteService(req.params.id);
-    res.data = data.username;
+    if (!data) return handleError(401, res);
     return response(204, data, res);
   }),
   getAllProducts: catchAsync(async (req, res) => {
     const data = await getAllService();
-    res.data = data;
+    if (!data) return response(200, 'zero products found ', res);
     return response(200, data, res);
   }),
 };
